@@ -1,5 +1,8 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
+=======
+>>>>>>> d20e75fab2d15073565afbeb9e3ac69a5afa5265
 
 const ThoughtList = ({ thoughts, title }) => {
   if (!thoughts.length) {
@@ -13,6 +16,7 @@ const ThoughtList = ({ thoughts, title }) => {
         thoughts.map(thought => (
           <div key={thought._id} className="card mb-3">
             <p className="card-header">
+<<<<<<< HEAD
               <Link
                 to={`/profile/${thought.username}`}
                 style={{ fontWeight: 700 }}
@@ -30,6 +34,17 @@ const ThoughtList = ({ thoughts, title }) => {
                   {thought.reactionCount ? 'see' : 'start'} the discussion!
                 </p>
               </Link>
+=======
+              {thought.username}
+              thought on {thought.createdAt}
+            </p>
+            <div className="card-body">
+              <p>{thought.thoughtText}</p>
+              <p className="mb-0">
+                Reactions: {thought.reactionCount} || Click to{' '}
+                {thought.reactionCount ? 'see' : 'start'} the discussion!
+              </p>
+>>>>>>> d20e75fab2d15073565afbeb9e3ac69a5afa5265
             </div>
           </div>
         ))}

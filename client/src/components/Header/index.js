@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 
 import Auth from '../../utils/auth';
@@ -31,6 +32,14 @@ const Header = () => {
             </>
           )}
         </nav>
+=======
+
+const Header = () => {
+  return (
+    <header className="bg-secondary mb-4 py-2 flex-row align-center">
+      <div className="container flex-row justify-space-between-lg justify-center align-center">
+        <h1>Deep Thoughts</h1>
+>>>>>>> d20e75fab2d15073565afbeb9e3ac69a5afa5265
       </div>
     </header>
   );
