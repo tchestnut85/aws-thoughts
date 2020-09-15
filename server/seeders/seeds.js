@@ -17,8 +17,9 @@ db.once('open', async () => {
 
     userData.push({ username, email, password });
   }
-
-  const createdUsers = await User.collection.insertMany(userData);
+  
+  // DynamoDB Insert call with userData
+  // const createdUsers = await User.collection.insertMany(userData); // 
 
   // create friends
   for (let i = 0; i < 100; i += 1) {
