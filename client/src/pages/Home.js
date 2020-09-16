@@ -7,6 +7,7 @@ import ThoughtList from '../components/ThoughtList';
 const Home = () => {
   // const { loading, data } = useQuery(QUERY_THOUGHTS);
   // const thoughts = data?.thoughts || [];
+  const loading = false;
   const thoughts = [
     {
       _id: 1,
@@ -31,7 +32,7 @@ const Home = () => {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <ThoughtList thoughts = {thoughts} title="Some Feed for Thought(s)..." />
+            <ThoughtList thoughts={thoughts} title="Some Feed for Thought(s)..." />
           )}
         </div>
       </div>

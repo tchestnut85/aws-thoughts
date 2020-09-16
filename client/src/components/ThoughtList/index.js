@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ThoughtList = () => {
+const ThoughtList = ({title}) => {
 // props:  { thoughts, title }
 
 const thoughts = [
