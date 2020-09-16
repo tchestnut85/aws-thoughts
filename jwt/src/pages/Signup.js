@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { ADD_USER } from '../utils/mutations';
 
-const Login = props => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+import Auth from '../utils/auth';
+
+const Signup = () => {
+  const [formState, setFormState] = useState({ username: 'Grep', email: 'grep@gmail.com', password: 'grep' });
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   // update state based on form input changes
   const handleChange = event => {
@@ -17,21 +22,33 @@ const Login = props => {
   const handleFormSubmit = async event => {
     event.preventDefault();
 
-    console.log( "formstate", formState.email, formState.password)
-    // clear form values
-    setFormState({
-      email: '',
-      password: ''
-    });
+    try {
+      const { data } = await addUser({
+        variables: { ...formState }
+      });
+
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-md-6">
         <div className="card">
-          <h4 className="card-header">Login</h4>
+          <h4 className="card-header">Sign Up</h4>
           <div className="card-body">
             <form onSubmit={handleFormSubmit}>
+              <input
+                className="form-input"
+                placeholder="Your username"
+                name="username"
+                type="username"
+                id="username"
+                value={formState.username}
+                onChange={handleChange}
+              />
               <input
                 className="form-input"
                 placeholder="Your email"
@@ -54,6 +71,8 @@ const Login = props => {
                 Submit
               </button>
             </form>
+
+            {error && <div>Signup failed</div>}
           </div>
         </div>
       </div>
@@ -61,4 +80,4 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default Signup;

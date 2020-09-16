@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_REACTION } from '../../utils/mutations';
 
-const ReactionForm = ({ thoughtId }) => {
+const ReactionForm = () => {
+  const thoughtId = 1;
   const [reactionBody, setBody] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
-  const [addReaction, { error }] = useMutation(ADD_REACTION);
+  // const [addReaction, { error }] = useMutation(ADD_REACTION);
 
   // update state based on form input changes
   const handleChange = event => {
@@ -21,9 +22,12 @@ const ReactionForm = ({ thoughtId }) => {
     event.preventDefault();
 
     try {
-      await addReaction({
-        variables: { reactionBody, thoughtId }
-      });
+      // await addReaction({
+      //   variables: { reactionBody, thoughtId }
+      // });
+
+      console.log("reactionBody:", reactionBody )
+      console.log("thoughtId:", thoughtId )
 
       // clear form value
       setBody('');
