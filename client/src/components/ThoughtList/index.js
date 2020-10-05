@@ -1,25 +1,6 @@
 import React from 'react';
 
-const ThoughtList = ({title}) => {
-// props:  { thoughts, title }
-
-const thoughts = [
-  {
-    _id: 1,
-    thoughtText: 'deep thoughts',
-    createdAt: Date.now(),
-    reactionCount: 4,
-    username: 'Grep' 
-  },
-  {
-    _id: 2,
-    thoughtText: 'shallow thoughts',
-    createdAt: Date.now(),
-    reactionCount: 2,
-    username: 'Groot' 
-  }
-];
-
+const ThoughtList = ({thoughts, title}) => {
   if (!thoughts.length) {
     return <h3>No Thoughts Yet</h3>;
   }

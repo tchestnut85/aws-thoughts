@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+const AWS = require("aws-sdk");
 
 const Login = props => {
   const [formState, setFormState] = useState({ email: '', password: '' });
