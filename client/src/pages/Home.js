@@ -22,13 +22,14 @@ const Home = () => {
   useEffect(() => {
     const fetchData = () => {
       const params = {
-        TableName: "Thoughts",
+        TableName: "Thoughts"
       };
       dynamodb.scan(params, (err, data) => {
         if (err) console.log(err, err.stack);  // an error occurred
         else {
-          // console.log("data", data.Items);
-          setThoughts(data.Items);
+          // sort the array of object by createdAt property
+          const orderData = data.Items.sort((a, b)=> (a.createdAt < b.createdAt) ? 1 : -1)
+          setThoughts(orderData);
           setIsLoaded(true);
         }               // successful response
       })
@@ -39,11 +40,9 @@ const Home = () => {
   return (
     <main>
       <div className="flex-row justify-space-between">
-     
-          <div className="col-12 mb-3">
-            <ThoughtForm />
-          </div>
-   
+        <div className="col-12 mb-3">
+          <ThoughtForm />
+        </div>
         <div className={`col-12 mb-3 `}>
           {!isLoaded ? (
             <div>Loading...</div>

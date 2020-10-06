@@ -13,7 +13,7 @@ const ThoughtList = ({ thoughts, title }) => {
         
         <div key={user.createdAt} className="card mb-3">
           <p className="card-header">
-            {user.username} thought on {new Date(user.createdAt).toString()}
+            {user.username}'s thought on {new Date(user.createdAt).toString()}
             </p>
             <p className="px-2">
             {user.thought}
