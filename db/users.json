@@ -1,0 +1,20 @@
+[
+    {
+        "username": "Kip.Buckridge",
+        "email": "Kip.Buckridge@email.com",
+        "thoughts": [
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum facilisis.",
+            "Mattis vulputate enim nulla aliquet porttitor.",
+            "Orci eu lobortis elementum nibh."
+        ]
+    },
+    {
+        "username": "Opal4",
+        "email": "Opal4@email.com",
+        "thoughts": [
+            "Donec massa sapien faucibus et molestie ac.",
+            "Gravida neque convallis a cras semper auctor neque.",
+            "Molestie ac feugiat sed lectus vestibulum mattis ullamcorper."
+        ]
+    }
+]

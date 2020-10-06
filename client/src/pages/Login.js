@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import Auth from '../utils/auth';
 const AWS = require("aws-sdk");
 
 const Login = props => {
@@ -17,7 +18,13 @@ const Login = props => {
   // submit form
   const handleFormSubmit = async event => {
     event.preventDefault();
+    try {
+      
 
+      // Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
     console.log( "formstate", formState.email, formState.password)
     // clear form values
     setFormState({
@@ -55,6 +62,7 @@ const Login = props => {
                 Submit
               </button>
             </form>
+            {/* {error && <div>Login failed</div>} */}
           </div>
         </div>
       </div>
