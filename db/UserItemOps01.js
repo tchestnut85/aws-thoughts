@@ -2,26 +2,25 @@ const AWS = require("aws-sdk");
 
 AWS.config.update({
   region: "us-east-2",
-  endpoint: "http://localhost:8000"
+  endpoint: "http://localhost:8000",
+  accessKeyId: 'xxxx',
+  secretAccessKey: 'xxxx'
 });
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const table = "Users";
-
 const username = "Rupal0ps1";
-const email = "Rupal@email.com";
-const thoughts = [
-    "Sagittis orci a scelerisque purus semper eget duis at tellus." 
-]
+const thought = "Sagittis orci a scelerisque purus semper eget duis at tellus.";
+
 
 
 const params = {
     TableName:table,
     Item:{
         "username": username,
-        "email": email,
-        "thoughts": thoughts
+        "createdAt": email,
+        "thought": thought
     }
 };
 

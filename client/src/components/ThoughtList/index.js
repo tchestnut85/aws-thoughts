@@ -9,14 +9,15 @@ const ThoughtList = ({ thoughts, title }) => {
     <div>
       <h3>{title}</h3>
       {thoughts &&
-      thoughts.map((user, index) => (
+      thoughts.map((user) => (
         
-        <div key={user.email} className="card mb-3">
+        <div key={user.createdAt} className="card mb-3">
           <p className="card-header">
-            {user.username} {" "}
+            {user.username} thought on {new Date(user.createdAt).toString()}
             </p>
-            {user.thoughts[0]}
-            
+            <p className="px-2">
+            {user.thought}
+            </p>
 
           </div>
       ))}
@@ -25,21 +26,3 @@ const ThoughtList = ({ thoughts, title }) => {
 };
 
 export default ThoughtList;
-
-
-//       {thoughts &&
-//         thoughts.map(user => (
-//           <div key={thought._id} className="card mb-3">
-//             <p className="card-header">
-//               {user.username}
-//               thought on {user.createdAt}
-//             </p>
-//             <div className="card-body">
-//               <p>{thought.thoughtText}</p>
-//               <p className="mb-0">
-//                 Reactions: {thought.reactionCount} || Click to{' '}
-//                 {thought.reactionCount ? 'see' : 'start'} the discussion!
-//               </p>
-//             </div>
-//           </div>
-//         ))}
