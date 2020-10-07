@@ -50,10 +50,6 @@ const Profile = props => {
 export default Profile;
 
 
-
-
-
-
 // import FriendList from '../components/FriendList';
 
 // import { useQuery, useMutation } from '@apollo/react-hooks';

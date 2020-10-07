@@ -18,7 +18,7 @@ const ThoughtList = ({ thoughts, title }) => {
                 style={{ fontWeight: 700 }}
                 className="text-light"
               >
-            {thought.username}'s thought on {new Date(thought.createdAt).toString()}
+            {thought.username}'s thought on {new Date(parseInt(thought.createdAt)).toString()}
             </Link>{' '}
             </p>
             <p className="px-2">
