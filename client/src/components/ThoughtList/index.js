@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ThoughtList = ({ thoughts, title }) => {
   if (!thoughts.length) {
@@ -9,14 +10,19 @@ const ThoughtList = ({ thoughts, title }) => {
     <div>
       <h3>{title}</h3>
       {thoughts &&
-      thoughts.map((user) => (
-        
-        <div key={user.createdAt} className="card mb-3">
+      thoughts.map((thought) => (
+        <div key={thought.createdAt} className="card mb-3">
           <p className="card-header">
-            {user.username}'s thought on {new Date(user.createdAt).toString()}
+          <Link
+                to={`/profile/${thought.username}`}
+                style={{ fontWeight: 700 }}
+                className="text-light"
+              >
+            {thought.username}'s thought on {new Date(thought.createdAt).toString()}
+            </Link>{' '}
             </p>
             <p className="px-2">
-            {user.thought}
+            {thought.thought}
             </p>
 
           </div>
