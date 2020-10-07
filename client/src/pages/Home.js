@@ -28,7 +28,7 @@ const Home = () => {
         if (err) console.log(err, err.stack);  // an error occurred
         else {
           // sort the array of object by createdAt property
-          const orderData = data.Items.sort((a, b)=> (a.createdAt < b.createdAt) ? 1 : -1)
+          const orderData = data.Items.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1)
           setThoughts(orderData);
           setIsLoaded(true);
         }               // successful response
