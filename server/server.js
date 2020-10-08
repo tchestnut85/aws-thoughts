@@ -25,20 +25,21 @@
 // });
 
 const express = require('express');
-
 const app = express();
 const PORT = process.env.PORT || 3001;
+const fileRoutes = require('./routes/file-upload');
 
-
+// express middleware, used to be bodyparser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static('public'));
 
 // Serve up static assets
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
-app.use(require('./routes'));
+
+// app.use(require('./routes'));
+app.use('/api/', fileRoutes);
 
 
 // Start the API server
