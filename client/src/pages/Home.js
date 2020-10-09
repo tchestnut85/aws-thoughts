@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ThoughtList from '../components/ThoughtList';
 import ThoughtForm from '../components/ThoughtForm';
-// import Auth from '../utils/auth';
-
-const AWS = require("aws-sdk");
-const awsConfig = {
-  region: "us-east-2",
-  endpoint: "http://localhost:8000",
-
-};
-AWS.config.update(awsConfig);
-
-const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,25 +9,16 @@ const Home = () => {
   // const loggedIn = Auth.loggedIn();
 
   useEffect(() => {
-    const fetchData = () => {
-      // const res = await fetch('/api/users');
-      // const data = await res.json();
-      // console.log(data.Items);
-      const params = {
-        TableName: "Thoughts"
-      };
-      dynamodb.scan(params, (err, data) => {
-        if (err) console.log(err, err.stack);  // an error occurred
-        else {
-          // sort the array of object by createdAt property
-          const orderData = data.Items.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1)
-          setThoughts(orderData);
-          setIsLoaded(true);
-        }               // successful response
-      })
+    const fetchData = async () => {
+      const res = await fetch('/api/users');
+      const data = await res.json();
+      // sort the array of object by createdAt property
+      const orderData = data.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
+      setThoughts(orderData);
+      setIsLoaded(true);
     }
     fetchData();
-  }, [thoughts])
+  }, [])
 
   return (
     <main>

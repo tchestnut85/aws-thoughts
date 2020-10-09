@@ -10,9 +10,10 @@ router.post('/image-upload', (req, res) => {
         return res.json({'imageUrl' : req.file.location});
     });
 });
-router.get('/users', (req, res) => {
-    res.json({"which": "which"})
-});
+
+// router.get('/users', (req, res) => {
+//     res.json({"which": "which"})
+// });
 
 
 
