@@ -10,7 +10,7 @@ AWS.config.update({
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 const params = {
-    TableName : "UserThoughts",
+    TableName : "Thoughts",
     KeySchema: [       
         { AttributeName: "username", KeyType: "HASH"},  //Partition key
         { AttributeName: "createdAt", KeyType: "RANGE" }  //Sort key
