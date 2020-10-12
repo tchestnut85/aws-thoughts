@@ -4,8 +4,7 @@ const AWS = require("aws-sdk");
 const awsConfig = {
   region: "us-east-2",
   endpoint: "http://localhost:8000",
-  accessKeyId: "xxxxx",
-  accessSecretKey: "xxxxxx"
+
 };
 AWS.config.update(awsConfig);
 const dynamodb = new AWS.DynamoDB.DocumentClient();
@@ -17,9 +16,9 @@ router.get('/users', (req, res) => {
     TableName: table
   };
   dynamodb.scan(params, (err, data) => {
-    if (err) console.log(err, err.stack);  // an error occurred
-    else {
-      console.log(data.Items)
+    if (err) {
+      res.status(500).json(err); // an error occurred
+    } else {
       res.json(data.Items)
     }
   });
@@ -30,7 +29,6 @@ router.get('/users/:username', (req, res) => {
   console.log(`Querying for thought(s) from ${req.params.username}.`);
   const params = {
     TableName: table,
-    ProjectionExpression: "#th, #ca",
     KeyConditionExpression: "#un = :user",
     ExpressionAttributeNames: {
       "#un": "username",
@@ -39,12 +37,14 @@ router.get('/users/:username', (req, res) => {
     },
     ExpressionAttributeValues: {
       ":user": req.params.username
-    }
+    },
+    ProjectionExpression: "#th, #ca"
   };
 
   dynamodb.query(params, (err, data) => {
     if (err) {
       console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+      res.status(500).json(err); // an error occurred
     } else {
       console.log("Query succeeded.");
       res.json(data.Items)
@@ -65,9 +65,10 @@ router.post('/users', (req, res) => {
   dynamodb.put(params, (err, data) => {
     if (err) {
       console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+      res.status(500).json(err); // an error occurred
     } else {
-      console.log("Added item:", JSON.stringify(data, null, 2));
-      res.json({"made": JSON.stringify(data, null, 2)});
+      console.log("Added item:", JSON.stringify(data));
+      res.json({ "Added": JSON.stringify(data, null, 2) });
     }
   });
 });
@@ -98,15 +99,59 @@ router.post('/users', (req, res) => {
 //   });
 // });
 
-// // Destroy
-// router.delete('/users/:time', (req, res) => {
-//   const {time} = req.params;
-//   res.json({ "time": time  })
-// });
+// Destroy
+router.delete('/users/:time/:username', (req, res) => {
+
+  const username = "Ray Davis"
+  const time = 1602466687289;
+  const thought = "Tolerance only for those who agree with you is no tolerance at all.";
+
+  const params = {
+    TableName: table,
+    Key: {
+      "username": username,
+      "createdAt": time,
+    },
+    KeyConditionExpression: "#ca = :time",
+    ExpressionAttributeNames: {
+      "#ca": "createdAt"
+    },
+    ExpressionAttributeValues: {
+      ":time": time,
+    }
+  }
+
+  console.log("Attempting a conditional delete...");
+  dynamodb.delete(params, (err, data) => {
+    if (err) {
+      console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
+      res.status(500).json(err); // an error occurred
+    } else {
+      console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+    }
+  });
+});
 
 // // update
 // router.put('/users/:username', (req, res) => {
 //   res.json({ "which": "which" })
 // });
+  // const { time, username } = req.params;
 
+//   var table = "Movies";
+
+// var year = 2015;
+// var title = "The Big New Movie";
+
+// var params = {
+//     TableName:table,
+//     Key:{
+//         "year": year,
+//         "title": title
+//     },
+//     ConditionExpression:"info.rating <= :val",
+//     ExpressionAttributeValues: {
+//         ":val": 5.0
+//     }
+// };
 module.exports = router;

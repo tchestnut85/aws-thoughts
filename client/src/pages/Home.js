@@ -12,13 +12,13 @@ const Home = () => {
     const fetchData = async () => {
       const res = await fetch('/api/users');
       const data = await res.json();
-      // sort the array of object by createdAt property
+      // sort the array by createdAt property ordered by descending values
       const orderData = data.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
       setThoughts(orderData);
       setIsLoaded(true);
     }
     fetchData();
-  }, [])
+  }, [thoughts])
 
   return (
     <main>
