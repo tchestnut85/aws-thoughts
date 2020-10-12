@@ -12,20 +12,6 @@ const ThoughtForm = () => {
     }
   };
 
-  //   fetch('/api/pizzas', {
-  //   method: 'POST',
-  //   headers: {
-  //     Accept: 'application/json',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(formData)
-  // })
-  //   .then(response => response.json())
-  //   .then(postResponse => {
-  //     console.log(postResponse);
-  //   })
-  //   .catch(err => {
-
   // submit form
   const handleFormSubmit = event => {
     event.preventDefault();
