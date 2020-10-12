@@ -38,7 +38,7 @@ router.get('/users/:username', (req, res) => {
     ExpressionAttributeValues: {
       ":user": req.params.username
     },
-    ProjectionExpression: "#th, #ca"
+    ProjectionExpression: "#un, #th, #ca"
   };
 
   dynamodb.query(params, (err, data) => {
@@ -100,11 +100,11 @@ router.post('/users', (req, res) => {
 // });
 
 // Destroy
-router.delete('/users/:time/:username', (req, res) => {
+router.delete('/users', (req, res) => {
 
-  const username = "Ray Davis"
-  const time = 1602466687289;
-  const thought = "Tolerance only for those who agree with you is no tolerance at all.";
+  const username = "Carol Dweck"
+  const time = 1602526377104;
+  // const thought = "Tolerance only for those who agree with you is no tolerance at all.";
 
   const params = {
     TableName: table,

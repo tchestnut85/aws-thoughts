@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const ThoughtForm = () => {
-  const [formState, setFormState] = useState({ username: '', text: '' });
+  const [formState, setFormState] = useState({ username: '', thought: '' });
   const [characterCount, setCharacterCount] = useState(0);
 
   // update state based on form input changes
@@ -12,12 +12,39 @@ const ThoughtForm = () => {
     }
   };
 
-  // submit form
-  const handleFormSubmit = async event => {
-    event.preventDefault();
+  //   fetch('/api/pizzas', {
+  //   method: 'POST',
+  //   headers: {
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(formData)
+  // })
+  //   .then(response => response.json())
+  //   .then(postResponse => {
+  //     console.log(postResponse);
+  //   })
+  //   .catch(err => {
 
+  // submit form
+  const handleFormSubmit = event => {
+    event.preventDefault();
+    // POST method with formState
+    const postData = async () => {
+      const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formState)
+      })
+      const data = await res.json();
+      console.log(data);
+    }
+    postData();
     // clear form value
-    setFormState({ username: '', text: '' });
+    setFormState({ username: '', thought: '' });
     setCharacterCount(0);
   };
 
@@ -40,8 +67,8 @@ const ThoughtForm = () => {
         ></input>
         <textarea
           placeholder="Here's a new thought..."
-          name="text"
-          value={formState.text}
+          name="thought"
+          value={formState.thought}
           className="form-input col-12 col-md-9"
           onChange={handleChange}
         ></textarea>

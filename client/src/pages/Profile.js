@@ -14,32 +14,41 @@ AWS.config.update(awsConfig);
 
 const Profile = props => {
   const { username: userParam } = useParams();
-
-  // const [isLoaded, setIsLoaded] = useState(false);
-  const [thoughts] = useState([{
-    username: userParam, 
-    createdAt: '1602003067054', 
-    thought: 'Imagination, not knowledge is man\'s greatest gift'
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [thoughts, setThoughts] = useState([{
+    username: userParam,
+    createdAt: '', 
+    thought: ''
   }]);
 
-  useEffect( () => {
-    const fetchData = () => {
-
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`/api/users/${userParam}`);
+      const data = await res.json();
+      // sort the array by createdAt property ordered by descending values
+      // const orderData = data.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
+      console.log(data);
+      setThoughts(data);
+      setIsLoaded(true);
     }
     fetchData();
-  }, [thoughts])
+  }, []);
 
   return (
     <div>
       <div className="flex-row mb-3">
         <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          Viewing {userParam ? `${thoughts[0].username}'s` : 'your'} profile.
+          Viewing {userParam ? `${userParam}'s` : 'your'} profile.
         </h2>
       </div>
 
       <div className="flex-row justify-space-between mb-3">
         <div className="col-12 mb-3 col-lg-8">
-          <ThoughtList thoughts={thoughts} title={`${thoughts[0].username}'s thoughts...`} />
+        {!isLoaded ? (
+            <div>Loading...</div>
+          ) : (
+          <ThoughtList thoughts={thoughts} title={`${userParam}'s thoughts...`} />
+          )}
         </div>
       </div>
       <div className="mb-3"> <ThoughtForm name={userParam} /></div>

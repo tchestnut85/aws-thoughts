@@ -18,7 +18,7 @@ const Home = () => {
       setIsLoaded(true);
     }
     fetchData();
-  }, [thoughts])
+  }, []);
 
   return (
     <main>
