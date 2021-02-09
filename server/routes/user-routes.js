@@ -38,7 +38,7 @@ router.get('/users/:username', (req, res) => {
     ExpressionAttributeValues: {
       ":user": req.params.username
     },
-    ProjectionExpression: "#un, #th, #ca"
+    ProjectionExpression: "#th, #ca"
   };
 
   dynamodb.query(params, (err, data) => {
@@ -72,13 +72,39 @@ router.post('/users', (req, res) => {
     }
   });
 });
+// // Create new user
+// router.get('/create', (req, res) => {
+//   const params = {
+//     TableName: table,
+//     Item: {
+//       "username": "Carol Dweck",
+//       "createdAt": 1602018401105,
+//       "thought": "You can suffer the pain of change or suffer remaining the way you are."
+//     }
+//   };
+//   // const params = {
+//   //   TableName: table,
+//   //   Item: {
+//   //     "username": req.body.username,
+//   //     "createdAt": Date.now(),
+//   //     "thought": req.body.text
+//   //   }
+//   // };
+//   dynamodb.put(params, (err, data) => {
+//     if (err) {
+//       console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+//     } else {
+//       console.log("Added item:", JSON.stringify(data, null, 2));
+//     }
+//   });
+// });
 
 // Destroy
-router.delete('/users', (req, res) => {
+router.delete('/users/:time/:username', (req, res) => {
 
-  const username = "Carol Dweck"
-  const time = 1602526377104;
-  // const thought = "Tolerance only for those who agree with you is no tolerance at all.";
+  const username = "Ray Davis"
+  const time = 1602466687289;
+  const thought = "Tolerance only for those who agree with you is no tolerance at all.";
 
   const params = {
     TableName: table,
@@ -106,4 +132,26 @@ router.delete('/users', (req, res) => {
   });
 });
 
+// // update
+// router.put('/users/:username', (req, res) => {
+//   res.json({ "which": "which" })
+// });
+  // const { time, username } = req.params;
+
+//   var table = "Movies";
+
+// var year = 2015;
+// var title = "The Big New Movie";
+
+// var params = {
+//     TableName:table,
+//     Key:{
+//         "year": year,
+//         "title": title
+//     },
+//     ConditionExpression:"info.rating <= :val",
+//     ExpressionAttributeValues: {
+//         ":val": 5.0
+//     }
+// };
 module.exports = router;
