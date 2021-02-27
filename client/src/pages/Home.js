@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import ThoughtList from '../components/ThoughtList';
+import React, { useEffect, useState } from 'react';
+
 import ThoughtForm from '../components/ThoughtForm';
+import ThoughtList from '../components/ThoughtList';
 
 const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -10,13 +11,17 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('/api/users');
-      const data = await res.json();
-      // sort the array by createdAt property ordered by descending values
-      const orderData = data.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
-      setThoughts(orderData);
-      setIsLoaded(true);
-    }
+      try {
+        const res = await fetch('/api/users');
+        const jsonData = await res.json();
+        const data = jsonData.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
+        // setThoughts(data);
+        setThoughts([...data]);
+        setIsLoaded(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchData();
   }, []);
 

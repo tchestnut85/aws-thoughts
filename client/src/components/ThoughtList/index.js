@@ -1,7 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import React from 'react';
 
-const ThoughtList = ({ thoughts, title }) => {
+const ThoughtList = ({ username, thoughts, title }) => {
   if (!thoughts.length) {
     return <h3>No Thoughts Yet</h3>;
   }
@@ -10,23 +10,24 @@ const ThoughtList = ({ thoughts, title }) => {
     <div>
       <h3>{title}</h3>
       {thoughts &&
-      thoughts.map((thought) => (
-        <div key={thought.createdAt} className="card mb-3">
-          <p className="card-header">
-          <Link
+        thoughts.map((thought) => (
+
+          <div key={thought.createdAt} className="card mb-3">
+            <p className="card-header">
+              <Link
                 to={`/profile/${thought.username}`}
                 style={{ fontWeight: 700 }}
                 className="text-light"
               >
-            {thought.username}'s thought on {new Date(parseInt(thought.createdAt)).toString()}
-            </Link>{' '}
+                {thought.username || username}'s thought on {new Date(parseInt(thought.createdAt)).toString()}
+              </Link>{' '}
             </p>
             <p className="px-2">
-            {thought.thought}
+              {thought.thought}
             </p>
 
           </div>
-      ))}
+        ))}
     </div>
   );
 };

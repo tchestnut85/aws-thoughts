@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import ThoughtForm from '../components/ThoughtForm';
 import ThoughtList from '../components/ThoughtList';
+import { useParams } from 'react-router-dom';
 
 const AWS = require("aws-sdk");
 const awsConfig = {
@@ -17,22 +17,24 @@ const Profile = props => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [thoughts, setThoughts] = useState([{
     username: userParam,
-    createdAt: '', 
+    createdAt: '',
     thought: ''
   }]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`/api/users/${userParam}`);
-      const data = await res.json();
-      // sort the array by createdAt property ordered by descending values
-      // const orderData = data.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
-      console.log(data);
-      setThoughts(data);
-      setIsLoaded(true);
-    }
+      try {
+        const res = await fetch(`/api/users/${userParam}`);
+        const data = await res.json();
+        console.log(data);
+        setThoughts([...data]);
+        setIsLoaded(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchData();
-  }, []);
+  }, [userParam]);
 
   return (
     <div>
@@ -44,11 +46,11 @@ const Profile = props => {
 
       <div className="flex-row justify-space-between mb-3">
         <div className="col-12 mb-3 col-lg-8">
-        {!isLoaded ? (
+          {!isLoaded ? (
             <div>Loading...</div>
           ) : (
-          <ThoughtList thoughts={thoughts} title={`${userParam}'s thoughts...`} />
-          )}
+              <ThoughtList username={userParam} thoughts={thoughts} title={`${userParam}'s thoughts...`} />
+            )}
         </div>
       </div>
       <div className="mb-3"> <ThoughtForm name={userParam} /></div>
