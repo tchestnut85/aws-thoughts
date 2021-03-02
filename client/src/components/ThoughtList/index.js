@@ -22,9 +22,20 @@ const ThoughtList = ({ username, thoughts, title }) => {
                 {thought.username || username}'s thought on {new Date(parseInt(thought.createdAt)).toString()}
               </Link>{' '}
             </p>
-            <p className="px-2">
-              {thought.thought}
-            </p>
+            {thought.thought &&
+              <p className="px-2">
+                {thought.thought}
+              </p>
+            }
+            {thought.image &&
+              <p className='px-2'>
+                <img
+                  className='nt-3 ml-4 thought-image'
+                  src={thought.image}
+                  alt="S3 bucket response"
+                />
+              </p>
+            }
 
           </div>
         ))}
